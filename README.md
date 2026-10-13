@@ -1,6 +1,6 @@
 # PINI
 
-> **Status: Phase 0 (Foundation).** The planning docs are approved (2026-10-12) and the repository skeleton exists. There is no runtime code, build tooling, or binary yet. The repository is private (D-07).
+> **Status: Phase 0 (Foundation).** The planning docs are approved (2026-10-12) and the repository skeleton exists. There is no runtime code, build tooling, or binary yet. The repository is public (D-07, amended 2026-10-13), but nothing is released yet.
 
 PINI is a memory-efficient JavaScript runtime built as a **downstream distribution of Node.js** and the V8 bundled with it. It does not build a new engine or garbage collector. It focuses on reproducible builds, evidence-based memory defaults, memory diagnostics, and a small set of carefully measured patches, for server workloads (HTTP APIs, Express apps, workers, containers).
 

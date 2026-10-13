@@ -63,7 +63,7 @@ Rules:
 ## 6. CI and release pipeline
 
 - Least privilege: build/test jobs have no publish credentials. Publishing runs in a separate protected workflow/environment that needs manual approval by a maintainer.
-- The repository and results are **private** (D-07, accepted 2026-10-12). Private-repo status is not a security control. All the rules here still apply.
+- The repository is **public** (D-07, amended 2026-10-13). Never commit secrets, heap snapshots, or raw diagnostics. All the rules here still apply.
 - Third-party CI actions are pinned by commit SHA.
 - Signing keys or OIDC trust are scoped to the release workflow only (mechanism: ADR-0009).
 - The benchmark host (self-hosted, ADR-0007) never runs untrusted PR code. Benchmarks run only on maintainer-approved refs.

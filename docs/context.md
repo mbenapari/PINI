@@ -21,7 +21,7 @@ PINI is a downstream **distribution** of Node.js using the V8 bundled with it (A
   - **License (D-01):** MIT + DCO. Every commit needs `git commit -s`.
   - **Infrastructure (D-04):** no budget. OCI Always Free Ampere A1 **arm64** is the build and benchmark host of record, so arm64 comes first. x64 is build and test only, on free GitHub Actions; private-repo minutes are limited, so keep CI jobs lean.
   - **Solo developer (D-05):** reproduction = clean-VM rebuild + checksum comparison. Patch review = cooling-off self-review + code-reviewer agent + full test tier (doc 04 §4).
-  - **Visibility (D-07):** repo and results are private.
+  - **Visibility (D-07, amended 2026-10-13):** repo and committed summary results are public (github.com/mbenapari/PINI); raw benchmark series stay off-repo.
   - **Security contact (D-02):** afa.hamdu@gmail.com.
   - **OCI layout:** two A1 VMs (2 OCPU / 12 GB each): one SUT, one load generator.
 - Benchmarks: compare only within the same host and session, always with an M1 A/A run. OCI VMs are disposable (idle reclamation), so never leave results only on a VM.
