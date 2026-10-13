@@ -35,7 +35,7 @@
 
 ## In progress
 
-- None. Next up: P0-03 (P0-02 done 2026-10-13: `git init` on `main`, charter §15 skeleton, `.gitignore`, `artifacts/README.md`, `CHANGELOG.md`; not yet committed).
+- None. Next up: P0-04. Done 2026-10-13: P0-02 (`git init` on `main`, charter §15 skeleton, `.gitignore`, `artifacts/README.md`, `CHANGELOG.md`; commit 02d5e01) and P0-03 (README layout table, SECURITY report contents, CONTRIBUTING changelog/results rules, section anchors).
 
 ## Blockers / waiting on
 

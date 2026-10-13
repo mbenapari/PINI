@@ -1,6 +1,6 @@
 # PINI
 
-> **Status: Phase 0 (Foundation).** No code or binaries exist yet. These are planning docs only (approved 2026-10-12).
+> **Status: Phase 0 (Foundation).** The planning docs are approved (2026-10-12) and the repository skeleton exists. There is no runtime code, build tooling, or binary yet. The repository is private (D-07).
 
 PINI is a memory-efficient JavaScript runtime built as a **downstream distribution of Node.js** and the V8 bundled with it. It does not build a new engine or garbage collector. It focuses on reproducible builds, evidence-based memory defaults, memory diagnostics, and a small set of carefully measured patches, for server workloads (HTTP APIs, Express apps, workers, containers).
 
@@ -16,6 +16,18 @@ PINI is a memory-efficient JavaScript runtime built as a **downstream distributi
 | See open decisions | [docs/decision-log.md](docs/decision-log.md) |
 | Contribute | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Report a vulnerability | [SECURITY.md](SECURITY.md) |
+
+## Repository layout
+
+| Path | Holds |
+|---|---|
+| `docs/` | Charter, architecture, and specs ([index](docs/architecture.md#0-document-map-master-index)) |
+| `upstream/` | Pinned Node.js/V8 versions, hashes, and toolchain |
+| `patches/node/`, `patches/v8/` | Ordered patch series (empty until Phase 4/5) |
+| `config/build/`, `config/runtime/` | Build flavors and runtime defaults |
+| `tools/` | Build, diagnostics, benchmark, and release tooling |
+| `benchmarks/`, `tests/`, `examples/` | Workloads, PINI test suites, example apps |
+| `artifacts/` | Local build outputs, never committed ([README](artifacts/README.md)) |
 
 ## Upstream base
 

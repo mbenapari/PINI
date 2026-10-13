@@ -103,7 +103,7 @@ Legend: complexity **S/M/L**, risk **lo/med/hi**. "Implements" cites the spec se
 |---|---|---|---|---|
 | P0-01 | Review and approve this doc set (D-01..D-07 resolved 2026-10-12) | all docs; decision-log | — | S/lo |
 | P0-02 | **(done 2026-10-13)** `git init`; create the charter §15 skeleton (dirs, `.gitignore` incl. `artifacts/` and `out/`, `artifacts/README.md`, `CHANGELOG.md`) | architecture.md §3; charter §15 | P0-01 | S/lo |
-| P0-03 | Finalize root README/SECURITY/CONTRIBUTING stubs (SECURITY contact: afa.hamdu@gmail.com) | SEC-AC-6 (partial); charter §13 Phase 0 | P0-01, D-02 | S/lo |
+| P0-03 | **(done 2026-10-13)** Finalize root README/SECURITY/CONTRIBUTING stubs (SECURITY contact: afa.hamdu@gmail.com) | SEC-AC-6 (partial); charter §13 Phase 0 | P0-01, D-02 | S/lo |
 | P0-04 | Add MIT `LICENSE`; DCO check in CI (D-01 accepted) | ADR-0011 | — | S/lo |
 | P0-05 | Create the **private** GitHub repo with protected main and required checks (D-07) | doc 04 §6 | P0-02 | S/lo |
 | P0-06 | CI T0 workflow: markdown lint, internal link check, actions pinned by SHA | TST-AC-1; doc 04 §6 | P0-05 | S/lo |
