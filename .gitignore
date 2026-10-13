@@ -1,0 +1,19 @@
+# Build outputs and artifacts (never committed; see artifacts/README.md)
+artifacts/*
+!artifacts/README.md
+out/
+
+# Fetched upstream source trees and caches
+/scratch/
+.ccache/
+
+# Node tooling
+node_modules/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local agent notes
+.claude/blueprint-notes.md
