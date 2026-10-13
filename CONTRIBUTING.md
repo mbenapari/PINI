@@ -20,6 +20,6 @@
 
 ## Sign-off and license
 
-PINI is MIT-licensed (accepted 2026-10-12, ADR-0011). Every commit must carry a **Developer Certificate of Origin** sign-off (`git commit -s`, which adds `Signed-off-by:`). CI will enforce this (P0-04). The sign-off email must match the commit author.
+PINI is MIT-licensed (accepted 2026-10-12, ADR-0011). Every commit must carry a **Developer Certificate of Origin** sign-off (`git commit -s`, which adds `Signed-off-by:`). CI enforces this on every pull request (`.github/workflows/dco.yml`, `tools/ci/check-dco.sh`). The sign-off email must match the commit author.
 
 PINI currently has one maintainer. Patches go through the solo review protocol in [docs/security-policy.md §4](docs/security-policy.md#4-patch-security): self-review after a cooling-off period, a code-reviewer agent pass, and the full test tier.

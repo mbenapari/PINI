@@ -1,0 +1,26 @@
+name: dco
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  dco:
+    runs-on: ubuntu-latest
+    steps:
+      # Plain git checkout so no third-party action needs SHA pinning (P0-06).
+      - name: Fetch PR commits
+        env:
+          REPO: ${{ github.server_url }}/${{ github.repository }}
+          TOKEN: ${{ github.token }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init -q .
+          git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)" \
+            fetch -q --no-tags "$REPO" "$BASE" "$HEAD"
+          git checkout -q "$HEAD"
+      - name: Check sign-off
+        run: tools/ci/check-dco.sh "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"

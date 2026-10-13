@@ -176,7 +176,7 @@ Then a budget request becomes D-04b.
 
 ## ADR-0011 — PINI license
 
-**Status: Accepted 2026-10-12 (owner decision D-01).** PINI's own code is **MIT**. Contributions require a **DCO sign-off** (`git commit -s`). Upstream Node.js is MIT with third-party licenses bundled in its `LICENSE`, and those notices ship with every PINI binary (release-process.md §5). The `LICENSE` file is created in task P0-04.
+**Status: Accepted 2026-10-12 (owner decision D-01).** PINI's own code is **MIT**. Contributions require a **DCO sign-off** (`git commit -s`). Upstream Node.js is MIT with third-party licenses bundled in its `LICENSE`, and those notices ship with every PINI binary (release-process.md §5). The `LICENSE` file was added in P0-04 (2026-10-13).
 
 ---
 

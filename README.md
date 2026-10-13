@@ -35,4 +35,4 @@ Node.js **v26 LTS** (the first v26 LTS release, on or after 2026-10-28). Not pin
 
 ## License
 
-MIT, with contributions under DCO sign-off (accepted 2026-10-12, ADR-0011). The `LICENSE` file will be added in task P0-04. Upstream Node.js is MIT-licensed, and its license notices (including third-party ones) ship with every PINI binary.
+MIT, with contributions under DCO sign-off (accepted 2026-10-12, ADR-0011). See [LICENSE](LICENSE). Upstream Node.js is MIT-licensed, and its license notices (including third-party ones) ship with every PINI binary.
