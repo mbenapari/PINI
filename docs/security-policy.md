@@ -67,6 +67,7 @@ Rules:
 - Least privilege: build/test jobs have no publish credentials. Publishing runs in a separate protected workflow/environment that needs manual approval by a maintainer.
 - The repository is **public** (D-07, amended 2026-10-13). Never commit secrets, heap snapshots, or raw diagnostics. All the rules here still apply.
 - Third-party CI actions are pinned by commit SHA.
+- Dependency scanning (SEC-AC-3): the T0 `dependency-review` job (`actions/dependency-review-action`, GitHub dependency graph and advisory database) fails any PR that adds a dependency, including a GitHub Action, with a known advisory of severity moderate or higher. Chosen in P0-08 because the repo is public (free), it needs no extra service or token, and it is diff-based, which matches "every PR touching lockfiles".
 - Signing keys or OIDC trust are scoped to the release workflow only (mechanism: ADR-0009).
 - The benchmark host (self-hosted, ADR-0007) never runs untrusted PR code. Benchmarks run only on maintainer-approved refs.
 

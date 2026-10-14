@@ -40,3 +40,15 @@ jobs:
         with:
           persist-credentials: false
       - run: tools/ci/check-action-pins.sh
+
+  # SEC-AC-3 (P0-08): fail a PR that adds a dependency with a known advisory
+  # (moderate or worse). Diffs the dependency graph between base and head, so it
+  # is a no-op until a PR touches a manifest or lockfile. PR-only: on push there
+  # is no base to diff against.
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: moderate

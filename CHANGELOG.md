@@ -11,3 +11,4 @@ All notable changes to PINI are recorded here. The format follows [Keep a Change
 - MIT `LICENSE` and a DCO sign-off check on pull requests (P0-04).
 - Public GitHub repository with a protected `main` (P0-05).
 - T0 CI: markdown lint, internal link and anchor check, action SHA-pin check (P0-06).
+- Dependency review on pull requests, blocking moderate-or-worse advisories (P0-08).
