@@ -29,13 +29,13 @@
   - **D-04:** no budget. OCI Always Free Ampere A1 (arm64, 4 OCPU / 24 GB total) is the build and benchmark host, so arm64 comes first. x64 builds and tests run on free GitHub Actions, with limited private-repo minutes.
   - **D-05:** solo developer. Reproduction = clean-VM rebuild + checksum comparison. Patch review = cooling-off self-review + code-reviewer agent + full test tier.
   - **D-06:** accepted as proposed.
-  - **D-07:** private repo and private results.
+  - **D-07:** private repo and private results. **Amended 2026-10-13:** repo public (free plans cannot protect private branches).
   - **D-02:** security contact afa.hamdu@gmail.com.
   - **OCI:** A1 capacity confirmed. The owner has provisioned two 2 OCPU / 12 GB VMs (SUT + load generator).
 
 ## In progress
 
-- None. Next up: P0-05. Done 2026-10-13: P0-04 (MIT `LICENSE`; DCO check `tools/ci/check-dco.sh` + `.github/workflows/dco.yml`, verified on existing history and against an unsigned commit), P0-02 (`git init` on `main`, charter §15 skeleton, `.gitignore`, `artifacts/README.md`, `CHANGELOG.md`; commit 02d5e01) and P0-03 (README layout table, SECURITY report contents, CONTRIBUTING changelog/results rules, section anchors).
+- None. Next up: P0-06. Done 2026-10-13: P0-05 (public repo github.com/mbenapari/PINI; `main` protected: PR required, `dco` check required and strict, no force-push or deletion), P0-04 (MIT `LICENSE`; DCO check `tools/ci/check-dco.sh` + `.github/workflows/dco.yml`, verified on existing history and against an unsigned commit), P0-02 (`git init` on `main`, charter §15 skeleton, `.gitignore`, `artifacts/README.md`, `CHANGELOG.md`; commit 02d5e01) and P0-03 (README layout table, SECURITY report contents, CONTRIBUTING changelog/results rules, section anchors).
 
 ## Blockers / waiting on
 
@@ -46,7 +46,7 @@
 
 ## Next (in order)
 
-2. ~~P0-02 `git init` + skeleton~~ (done 2026-10-13); ~~P0-04 MIT `LICENSE`~~ (done 2026-10-13); P0-05 **private** repo; P0-06 T0 CI (+ DCO check).
+2. ~~P0-02 `git init` + skeleton~~ (done 2026-10-13); ~~P0-04 MIT `LICENSE`~~ (done 2026-10-13); ~~P0-05 repo~~ (done 2026-10-13, public); P0-06 T0 CI (+ DCO check).
 3. P0-11: dev-machine hygiene (update Node, install gpg).
 4. P0-09: script provisioning of the two existing VMs (so they can be rebuilt after reclamation).
 5. P0-10: riskiest-first arm64 build dry run of v26.11.1 on A1.

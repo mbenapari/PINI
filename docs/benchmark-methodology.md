@@ -157,7 +157,7 @@ All rows use the same upstream tarball (version-lock). If M0 and M1 differ beyon
 ## 7. Result schema and storage
 
 - Each run emits `result.json` (schema `pini.bench-result/v0`): run id, workload id + commit, row, binary manifest (doc 07 §3), flags, host fingerprint (§4.1 table), load-generator name+version+args, the time series file path, and the summary metrics of §5.
-- Raw results go to `artifacts/bench/` (gitignored) and are copied off the VM after every session, because of reclamation risk. Summary JSON is committed to `results/` in the **private** repo (D-07, accepted 2026-10-12: repo and results stay private). Raw series are kept as private CI artifacts or in off-VM storage. Until D-07 is revisited (Phase 6), "published" in this doc means published *inside the private repo*.
+- Raw results go to `artifacts/bench/` (gitignored) and are copied off the VM after every session, because of reclamation risk. Summary JSON is committed to `results/` in the **public** repo (D-07, amended 2026-10-13). Raw series stay off-repo. Raw series are kept as private CI artifacts or in off-VM storage. Until D-07 is revisited (Phase 6), "published" in this doc means published *inside the private repo*.
 
 ---
 

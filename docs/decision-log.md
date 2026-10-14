@@ -192,14 +192,14 @@ Each item states the default in effect and what changes if the answer differs.
 | ~~D-04~~ | ~~Benchmark host and CI budget (ADR-0007)~~ | | **resolved (2026-10-12):** no budget. OCI Always Free Ampere A1 (arm64, 4 OCPU / 24 GB total) + free GitHub Actions for x64. Insufficiency triggers are in ADR-0007 |
 | ~~D-05~~ | ~~Number of maintainers / reviewers~~ | | **resolved (2026-10-12):** solo developer. Reproduction = clean-VM rebuild + checksum comparison (BLD-AC-3, BM-AC-5). Patch review = self-review after a cooling-off period + code-reviewer agent pass + full test tier (security-policy.md §4) |
 | ~~D-06~~ | ~~Security response targets (doc 04 §8)~~ | | **resolved (2026-10-12):** accepted as proposed. Triage within 2 business days; High/Critical release ≤ 7 days; others ≤ 30 days |
-| ~~D-07~~ | ~~Public vs private repository / results~~ | | **resolved (2026-10-12):** private repo, private results. Revisit at Phase 6 |
+| ~~D-07~~ | ~~Public vs private repository / results~~ | | **resolved (2026-10-12):** private repo, private results. Revisit at Phase 6. **amended (2026-10-13):** repo made **public** (github.com/mbenapari/PINI). Free GitHub plans do not allow branch protection on private repos, and D-04 rules out paying. Summary JSON in `results/` is therefore public too; raw series stay off-repo |
 
 ## Open technical questions (non-blocking; defaults in place)
 
 | ID | Question | Default | Owner doc |
 |---|---|---|---|
 | Q-01 | Exact v26 LTS version and its hash | fill on 2026-10-28+ | version-lock |
-| ~~Q-02~~ | ~~Results storage location~~ | **resolved (2026-10-12)** with D-07: summary JSON in the private repo `results/`; raw series off-VM / private CI artifacts | doc 02 §7 |
+| ~~Q-02~~ | ~~Results storage location~~ | **resolved (2026-10-12)** with D-07: summary JSON in `results/` (public since the 2026-10-13 D-07 amendment); raw series off-VM / private CI artifacts | doc 02 §7 |
 | Q-03 | Does an upstream line migration bump PINI minor or major? | minor, major if a guaranteed API is removed | doc 07 §1 |
 | Q-04 | Upstream version in artifact filename? | no, manifest only | doc 07 §5 |
 | Q-05 | Memory report transport: reuse `process.report` or own signal? | compose from `process.report` | doc 01 §7.1 |

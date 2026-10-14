@@ -32,10 +32,10 @@ The charter phase order (§13) stands. What follows is the dependency reasoning,
 | 3 Diagnostics | Phase 1 samplers (P1-09, P1-10). Can overlap Phase 2 | GC-duration semantics (Q-06) | In-process sampler overhead acceptable (DG-AC-4) |
 | 4 Config experiments | Phase 1 baseline + Phase 3 report; A/A thresholds (P4-01) | Baseline variance known | Effects are bigger than noise |
 | 5 Targeted patches | Phase 4 identifies a bottleneck that config can't fix; solo review protocol (doc 04 §4, D-05) | A concrete bottleneck exists | — ("no patch warranted" is valid) |
-| 6 Developer preview | Phases 2–4; signing (ADR-0009); security contact (D-02, resolved); revisit D-07 (currently private) | D-07 revisit | — |
+| 6 Developer preview | Phases 2–4; signing (ADR-0009); security contact (D-02, resolved); revisit D-07 (repo public since 2026-10-13; results policy) | D-07 revisit | — |
 | 7 Stable 1.0 | Phase 6 feedback | — | — |
 
-**Exposure rings (rollout):** ring 0 = the solo maintainer only, private repo (D-05, D-07) (Phases 1–5, `development` channel). Ring 1 = invited evaluators (Phase 6, `experimental`/`release-candidate`). Ring 2 = public `stable` (Phase 7). Each ring widens only when the previous ring's exit criteria are met. For ring 1 that means: no open release-gate failures (doc 05 §6) and at least one external reproduction of a benchmark result.
+**Exposure rings (rollout):** ring 0 = the solo maintainer only, public repo, no announcement or releases (D-05, D-07 as amended 2026-10-13) (Phases 1–5, `development` channel). Ring 1 = invited evaluators (Phase 6, `experimental`/`release-candidate`). Ring 2 = public `stable` (Phase 7). Each ring widens only when the previous ring's exit criteria are met. For ring 1 that means: no open release-gate failures (doc 05 §6) and at least one external reproduction of a benchmark result.
 
 ## 3. Calendar anchors (external, verified 2026-10-12)
 
@@ -105,7 +105,7 @@ Legend: complexity **S/M/L**, risk **lo/med/hi**. "Implements" cites the spec se
 | P0-02 | **(done 2026-10-13)** `git init`; create the charter §15 skeleton (dirs, `.gitignore` incl. `artifacts/` and `out/`, `artifacts/README.md`, `CHANGELOG.md`) | architecture.md §3; charter §15 | P0-01 | S/lo |
 | P0-03 | **(done 2026-10-13)** Finalize root README/SECURITY/CONTRIBUTING stubs (SECURITY contact: afa.hamdu@gmail.com) | SEC-AC-6 (partial); charter §13 Phase 0 | P0-01, D-02 | S/lo |
 | P0-04 | **(done 2026-10-13)** Add MIT `LICENSE`; DCO check in CI (D-01 accepted) | ADR-0011 | — | S/lo |
-| P0-05 | Create the **private** GitHub repo with protected main and required checks (D-07) | doc 04 §6 | P0-02 | S/lo |
+| P0-05 | **(done 2026-10-13)** Create the GitHub repo with protected main and required checks. Made **public** (D-07 amended 2026-10-13: free plans cannot protect private repos) | doc 04 §6 | P0-02 | S/lo |
 | P0-06 | CI T0 workflow: markdown lint, internal link check, actions pinned by SHA | TST-AC-1; doc 04 §6 | P0-05 | S/lo |
 | P0-07 | ~~Decide ADR-0003/ADR-0007~~ **resolved 2026-10-12.** OCI A1 capacity is confirmed: two 2 OCPU / 12 GB VMs are provisioned **(done 2026-10-12)** | ADR-0007 | — | S/lo |
 | P0-08 | Pick a dependency-scanning tool and wire it into T0 | SEC-AC-3 | P0-06 | S/lo |
@@ -228,7 +228,7 @@ Legend: complexity **S/M/L**, risk **lo/med/hi**. "Implements" cites the spec se
 - [x] D-04 decided: OCI Always Free arm64 + free GitHub Actions (2026-10-12).
 - [x] D-05 decided: solo developer, with clean-VM reproduction and the solo review protocol (2026-10-12).
 - [x] D-01 decided: MIT + DCO (2026-10-12).
-- [x] D-07 decided: private repo and results (2026-10-12).
+- [x] D-07 decided: private repo and results (2026-10-12). **Amended 2026-10-13:** repo is public.
 - [x] D-06 accepted as proposed (2026-10-12).
 - [x] D-02 decided: afa.hamdu@gmail.com (2026-10-12).
 - [x] OCI A1 capacity confirmed: two 2 OCPU / 12 GB VMs provisioned (2026-10-12).
