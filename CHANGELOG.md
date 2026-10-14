@@ -5,7 +5,9 @@ All notable changes to PINI are recorded here. The format follows [Keep a Change
 ## [Unreleased]
 
 ### Added
+
 - Repository skeleton per charter §15 (P0-02).
 - Final README, SECURITY, and CONTRIBUTING for Phase 0 (P0-03).
 - MIT `LICENSE` and a DCO sign-off check on pull requests (P0-04).
 - Public GitHub repository with a protected `main` (P0-05).
+- T0 CI: markdown lint, internal link and anchor check, action SHA-pin check (P0-06).

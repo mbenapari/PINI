@@ -15,6 +15,7 @@
 ## 1. Definition of done (cross-cutting)
 
 Charter §14.4 applies in full. Added for PINI:
+
 1. **Docs stay in sync.** Any change to a flag, metric, schema, workload, or flavor updates the owning doc in the same PR (owner per architecture.md §0). The PR template has a checkbox for it.
 2. **Verified, not assumed.** Any new claim about Node/V8 behavior cites the pinned source (`file:line` at the pinned tag) or a command output. Otherwise it is labelled *Assumption* (charter §14.3.5).
 3. **`progress.md` updated** after meaningful work. New decisions go to `decision-log.md`.
@@ -103,10 +104,10 @@ Legend: complexity **S/M/L**, risk **lo/med/hi**. "Implements" cites the spec se
 |---|---|---|---|---|
 | P0-01 | Review and approve this doc set (D-01..D-07 resolved 2026-10-12) | all docs; decision-log | — | S/lo |
 | P0-02 | **(done 2026-10-13)** `git init`; create the charter §15 skeleton (dirs, `.gitignore` incl. `artifacts/` and `out/`, `artifacts/README.md`, `CHANGELOG.md`) | architecture.md §3; charter §15 | P0-01 | S/lo |
-| P0-03 | **(done 2026-10-13)** Finalize root README/SECURITY/CONTRIBUTING stubs (SECURITY contact: afa.hamdu@gmail.com) | SEC-AC-6 (partial); charter §13 Phase 0 | P0-01, D-02 | S/lo |
+| P0-03 | **(done 2026-10-13)** Finalize root README/SECURITY/CONTRIBUTING stubs (SECURITY contact: <afa.hamdu@gmail.com>) | SEC-AC-6 (partial); charter §13 Phase 0 | P0-01, D-02 | S/lo |
 | P0-04 | **(done 2026-10-13)** Add MIT `LICENSE`; DCO check in CI (D-01 accepted) | ADR-0011 | — | S/lo |
 | P0-05 | **(done 2026-10-13)** Create the GitHub repo with protected main and required checks. Made **public** (D-07 amended 2026-10-13: free plans cannot protect private repos) | doc 04 §6 | P0-02 | S/lo |
-| P0-06 | CI T0 workflow: markdown lint, internal link check, actions pinned by SHA | TST-AC-1; doc 04 §6 | P0-05 | S/lo |
+| P0-06 | **(done 2026-10-14)** CI T0 workflow: markdown lint, internal link check, actions pinned by SHA | TST-AC-1; doc 04 §6 | P0-05 | S/lo |
 | P0-07 | ~~Decide ADR-0003/ADR-0007~~ **resolved 2026-10-12.** OCI A1 capacity is confirmed: two 2 OCPU / 12 GB VMs are provisioned **(done 2026-10-12)** | ADR-0007 | — | S/lo |
 | P0-08 | Pick a dependency-scanning tool and wire it into T0 | SEC-AC-3 | P0-06 | S/lo |
 | P0-09 | **Scripted** provisioning of the OCI A1 VM(s) (disposable, because of reclamation): OS, Podman/Docker, ccache, disk layout, optional self-hosted runner | ADR-0004, ADR-0007 | P0-07 | M/med |
@@ -217,6 +218,7 @@ Legend: complexity **S/M/L**, risk **lo/med/hi**. "Implements" cites the spec se
 **Tasks that trace to no acceptance criterion (justified):** P0-01 (review gate), P0-02/P0-05 (charter §15 / Phase 0 deliverables), P0-04 (ADR-0011), P0-07/P2-09 (decisions), P0-09/P0-10/P0-12/P1-15/P3-03 (prerequisites PR-1..PR-9), P0-11 (dev hygiene, context.md), P0-13 (charter Phase 0 "versioning policy"), P1-08/P1-09 (doc 02 §4.1/§5 specs; their result is covered by BM-AC-3/4), P1-16 (Q-07), P2-01 (ADR-0008), P2-08 (doc 04 §3.4), P4-02 (doc 01 protocol).
 
 **Gaps found:**
+
 1. ~~**BLD-AC-3 / BM-AC-5 depend on a second developer who does not exist yet (D-05).**~~ **resolved (2026-10-12):** both criteria were redefined as clean-VM rebuild + checksum comparison (D-05). The charter (vision.md §8.3, §13 Phase 1) now uses the same clean-VM wording, so there is no deviation.
 2. The charter Phase 0 deliverable "upstream-management doc" has no separate file. It is covered by ADR-0002 + `upstream/version-lock.md`. Flagged in case a standalone doc is wanted.
 3. Doc 04 §3.2 (network-isolated build) and §3.4 (reproducible build) are goals without hard acceptance criteria, by design (charter: "reproducible-where-practical"). P2-08 records the outcome.
@@ -230,7 +232,7 @@ Legend: complexity **S/M/L**, risk **lo/med/hi**. "Implements" cites the spec se
 - [x] D-01 decided: MIT + DCO (2026-10-12).
 - [x] D-07 decided: private repo and results (2026-10-12). **Amended 2026-10-13:** repo is public.
 - [x] D-06 accepted as proposed (2026-10-12).
-- [x] D-02 decided: afa.hamdu@gmail.com (2026-10-12).
+- [x] D-02 decided: <afa.hamdu@gmail.com> (2026-10-12).
 - [x] OCI A1 capacity confirmed: two 2 OCPU / 12 GB VMs provisioned (2026-10-12).
 - [ ] No objection to architecture.md CD-5 (our own build as baseline; official binary as M0).
 - [ ] No objection to ADR-0002 (tarball + patch series), ADR-0005 (oha), ADR-0006 (pointer compression Phase 4 only).

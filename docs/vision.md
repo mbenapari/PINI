@@ -22,7 +22,7 @@ It does not build a new engine. V8 already provides a mature parser, JIT, genera
 
 Work proceeds from least to most invasive:
 
-```
+```text
 measure → configure → diagnose → patch Node.js → patch V8 (only if proven necessary)
 ```
 
@@ -169,7 +169,7 @@ These are existing, documented mechanisms to be measured in Phases 1–4 *before
 
 ## 7. Architecture (logical layers)
 
-```
+```text
 ┌───────────────────────────────────────────────┐
 │ 7  Release & distribution  (binaries, images, │
 │    checksums, signatures, notes, advisories)  │
@@ -255,7 +255,7 @@ A patch is never accepted because it wins one micro-benchmark. It must hold up a
 
 All four use the same upstream source version PINI is derived from.
 
-**Metrics**
+### 10.1 Metrics
 
 | Category | Metrics |
 |---|---|
@@ -469,16 +469,16 @@ Considered only after the core runtime and measurement infrastructure are reliab
 
 Re-check all of these against the pinned version when Phase 1 selects it — V8 internals and build flags change between releases.
 
-- Node.js source — https://github.com/nodejs/node
-- Node.js build guide — https://github.com/nodejs/node/blob/main/BUILDING.md
-- Node.js release schedule — https://github.com/nodejs/release#release-schedule
-- Node.js docs — https://nodejs.org/docs/
-- `process.memoryUsage()` — https://nodejs.org/api/process.html#processmemoryusage
-- `perf_hooks` — https://nodejs.org/api/perf_hooks.html
-- `v8` module — https://nodejs.org/api/v8.html
-- V8 embedding — https://v8.dev/docs/embed
-- V8 GC docs — https://github.com/v8/v8/blob/main/docs/heap/garbage-collection.md
-- V8 pointer compression — https://v8.dev/blog/pointer-compression
+- Node.js source — <https://github.com/nodejs/node>
+- Node.js build guide — <https://github.com/nodejs/node/blob/main/BUILDING.md>
+- Node.js release schedule — <https://github.com/nodejs/release#release-schedule>
+- Node.js docs — <https://nodejs.org/docs/>
+- `process.memoryUsage()` — <https://nodejs.org/api/process.html#processmemoryusage>
+- `perf_hooks` — <https://nodejs.org/api/perf_hooks.html>
+- `v8` module — <https://nodejs.org/api/v8.html>
+- V8 embedding — <https://v8.dev/docs/embed>
+- V8 GC docs — <https://github.com/v8/v8/blob/main/docs/heap/garbage-collection.md>
+- V8 pointer compression — <https://v8.dev/blog/pointer-compression>
 
 ---
 

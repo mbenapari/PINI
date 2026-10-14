@@ -52,6 +52,7 @@ Benchmarks are not tests. Benchmark regression checks (doc 02) run on the benchm
 ## 5. Differential triage procedure
 
 For any red test on a PINI flavor:
+
 1. Re-run on M1 at the same commit and host.
 2. Fails on M1 too: tag it `upstream-known`, record it in the RC's compatibility notes, and do not block, unless it is security- or data-loss-related.
 3. Passes on M1: it is a PINI regression and blocks the release (§6).
