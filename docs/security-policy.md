@@ -51,10 +51,12 @@
 ## 5. Diagnostics privacy (charter §11.2)
 
 Verified upstream facts that drive these rules:
+
 - The Node diagnostic report includes `environmentVariables` and `header.networkInterfaces` **by default**. `--report-exclude-env` and `--report-exclude-network` (and `process.report.excludeNetwork`) exist to drop them (v26.11.1 `doc/api/cli.md`, `doc/api/report.md`; flags present in local `node --help`).
 - Heap snapshots (`--heapsnapshot-signal`, `--heapsnapshot-near-heap-limit`, `v8.writeHeapSnapshot`) and heap profiles contain **all string contents** of the heap, including any secrets in memory.
 
 Rules:
+
 1. PINI's memory report (doc 01 §7) never includes env var values, argument values, heap contents, or network interfaces. Enforced by DG-AC-3.
 2. When PINI tooling triggers a Node diagnostic report, it passes the exclude-env and exclude-network options.
 3. Heap snapshots and profiles are **confidential artifacts**. They are never uploaded by CI, never attached to public issues, and are stored only on the machine that produced them unless a maintainer moves them. They are deleted when the investigation closes. Issue templates (Phase 6) say this explicitly.
@@ -79,6 +81,7 @@ Every release publishes SHA-256 checksums, a signature, and build provenance (do
 Context worth knowing (verified, 2026): the Node.js project **no longer runs a bug bounty** (announcement 2026-04-02; `SECURITY.md`: "The Node.js project no longer has a bug bounty program"). Upstream issues CVEs and typically sets an embargo date 72 hours after the CVE is issued (upstream `SECURITY.md`).
 
 **Per upstream security release, PINI records in `docs/security-log.md` (created on the first event):**
+
 1. Date seen; upstream versions; CVEs.
 2. Affected? (Is the pinned line in the affected set?)
 3. Do PINI patches still apply on the fixed version?
@@ -101,4 +104,4 @@ Intake per root [SECURITY.md](../SECURITY.md) → acknowledge → determine whet
 - **SEC-AC-3** Dependency scanning runs on every PR touching lockfiles.
 - **SEC-AC-4** DG-AC-3 (diagnostics privacy test) passes.
 - **SEC-AC-5** A dry-run of the §8 process, using the most recent upstream security release for the pinned line, is completed and logged before Phase 6.
-- **SEC-AC-6** Root SECURITY.md lists a working private contact: **afa.hamdu@gmail.com** (D-02, accepted 2026-10-12). Before any artifact leaves the private repo, send a test email to confirm it is monitored.
+- **SEC-AC-6** Root SECURITY.md lists a working private contact: **<afa.hamdu@gmail.com>** (D-02, accepted 2026-10-12). Before any artifact leaves the private repo, send a test email to confirm it is monitored.

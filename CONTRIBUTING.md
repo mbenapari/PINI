@@ -18,6 +18,19 @@
 - **Changelog:** add user-visible changes under `[Unreleased]` in [CHANGELOG.md](CHANGELOG.md).
 - **Results:** any number in a doc links to a `result.json` with a manifest. Never commit binaries or build outputs; they go in `artifacts/`.
 
+## Checks before a PR
+
+CI tier T0 runs on every pull request and must pass before merge. To run it locally:
+
+```sh
+npx markdownlint-cli2 "**/*.md"
+lychee --offline --include-fragments './**/*.md'
+tools/ci/check-action-pins.sh
+tools/ci/check-dco.sh origin/main..HEAD
+```
+
+Any new GitHub Action must be pinned to a full commit SHA, with the version in a trailing comment.
+
 ## Sign-off and license
 
 PINI is MIT-licensed (accepted 2026-10-12, ADR-0011). Every commit must carry a **Developer Certificate of Origin** sign-off (`git commit -s`, which adds `Signed-off-by:`). CI enforces this on every pull request (`.github/workflows/dco.yml`, `tools/ci/check-dco.sh`). The sign-off email must match the commit author.

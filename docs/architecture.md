@@ -84,7 +84,7 @@ PINI is a set of *repository-owned artifacts* plus a *build process* that turns 
 
 ### 3.1 Data flow
 
-```
+```text
 version-lock ──► fetch + verify (SHA-256 + gpgv) ──► scratch source tree
                                                         │
                        patches/ (series, `git apply`) ──┤  (no-op until patches exist)
@@ -121,15 +121,18 @@ The layer table in vision.md §7 is normative. This section adds the *technical 
 Each decision has a full ADR in doc 08. The summary here is what every subsystem doc builds on.
 
 ### CD-1. Distribution, not engine (ADR-0001, **accepted, locked**)
+
 Covered by charter §6.1. Consequence for all docs: a proposal that cannot be expressed as a build flag, a runtime flag, a tooling change, or a small reviewed patch is out of scope until the charter's §9 gates say otherwise.
 
 ### CD-2. Upstream enters as a verified release tarball, not a fork (ADR-0002, *proposed*)
+
 - **Input:** `https://nodejs.org/dist/vX.Y.Z/node-vX.Y.Z.tar.xz`, verified two ways. First, `gpgv` checks `SHASUMS256.txt.asc` against the `nodejs/release-keys` keyring (procedure from upstream README "Verifying binaries"). Second, the tarball's SHA-256 is checked against both the verified `SHASUMS256.txt` and the value recorded in `upstream/version-lock.md`.
 - **Why:** this is the artifact upstream signs and ships. It needs no submodule ergonomics, keeps the repo small (charter §15: "no vendored copy"), and the hash recorded in the lock is the hash of the thing we actually build.
 - **Verified this session:** the v26.11.1 source tarball contains `test/` (all upstream JS/native suites) and `benchmark/`. It does **not** contain V8's own test suite: only 4 files under `deps/v8/test/`. Consequence: if a V8 patch is ever proposed (Phase 5+), V8's tests must come from a separate pinned V8 git checkout. That is recorded as a prerequisite in doc 09 §4.
 - **Why not a git fork:** rebasing a fork branch hides the patch set inside history, and the charter wants patches that are "easy to diff against upstream" (vision §5.3). **Why not a submodule:** the GitHub API reports the `nodejs/node` repository at ~1.6 GB (`size: 1644526` KB, 2026-10-12), while the v26.11.1 `.tar.xz` is ~63 MB. That is a lot of history to carry for a read-only input, plus the extra ceremony of submodule updates. Alternatives in full: ADR-0002.
 
 ### CD-3. Pin the Node.js 26 LTS line (ADR-0003, *proposed, needs sign-off*)
+
 Verified schedule (nodejs/Release `schedule.json` and README, fetched 2026-10-12):
 
 | Line | Status on 2026-10-12 | Next transition | EOL | Bundled V8 (latest release) |
@@ -142,25 +145,32 @@ Verified schedule (nodejs/Release `schedule.json` and README, fetched 2026-10-12
 The recommendation is the first LTS-designated v26 release. It has the longest support window, covering Phases 1–7 without a forced line migration. It is the last line under the old release model (Node.js announcement, 2026-03-10). And v26 adds `total_allocated_bytes` to `v8.getHeapStatistics()` (verified in v26.11.1 `doc/api/v8.md`; absent from v24.21.0), which gives a direct allocation-rate metric that charter §9 stage 1 asks for. The fallback is the latest v24.x. The full trade-off, including v26's heavier build prerequisites, is in ADR-0003 and `upstream/version-lock.md`.
 
 ### CD-4. Build in a pinned Linux container whose toolchain matches upstream's official one (ADR-0004, *proposed*)
+
 Upstream official linux-x64/arm64 binaries for v26 are built on "RHEL 8 with Clang 20.1 and gcc-toolset-14-libatomic-devel" (v26.11.1 `BUILDING.md`). The minimum toolchain is "GCC >= 13.2 or Clang >= 19.1". Python 3.10–3.14 is accepted by `configure`. A Rust toolchain (rustc >= 1.86) is needed for Temporal. PINI builds inside an OCI image based on a RHEL 8-compatible distribution with that toolchain, with the image digest recorded in the lock. That gives glibc 2.28 compatibility identical to upstream binaries and keeps toolchain-induced differences out of the comparison matrix (CD-5).
 
 ### CD-5. The baseline comparator is *our own* unmodified build; the official binary is a sanity reference
+
 Charter §10 requires that rows M1–M4 "use the same upstream source version". PINI goes one step further: rows M1/M2 (upstream default/tuned) run a binary **we build from the identical verified tarball, with the identical toolchain, and with upstream's configure flags**. Any measured difference is then attributable to configuration or patches, not to compiler differences. The official nodejs.org binary of the same version is benchmarked once per pin as row **M0 (reference)**, to detect whether our toolchain itself moved the baseline. Details: doc 02 §3.
 
 ### CD-6. PINI must be API- and version-transparent by default (ADR-0008, *open*)
+
 Existing apps must run unchanged (charter §1). Two verified upstream mechanisms would change what apps see, and both carry compatibility hazards:
+
 - `configure --tag=<x>` appends `-<x>` to the version string (verified: `configure.py` sets `node_tag = '-' + options.tag`, and `src/node_version.h` builds `NODE_VERSION_STRING` with `NODE_TAG`). The result is a **semver pre-release** such as `v26.12.0-pini.1`, which sorts *below* `v26.12.0`. That can break `engines` checks and version gates in tools. *Assumption, to be tested in Phase 2.*
 - `process.release` URLs (`--release-urlbase`) drive where add-on build tooling fetches headers. *Assumption based on documented `process.release.headersUrl` purpose; behavior with node-gyp to be verified in Phase 2.*
 
 Default until ADR-0008 is decided: the binary reports the **exact upstream version unchanged**. PINI identity lives in a side-car release manifest (doc 07 §3) and in the diagnostics report. No `--tag` goes into stable artifacts.
 
 ### CD-7. Project tooling runs on a stock Node.js LTS, never on the binary under test (ADR-0010, *proposed*)
+
 Harness, report generation, and release tooling run on a separately installed, pinned upstream Node.js. Only workloads and tests run on the binary under test. This avoids a circularity where a PINI regression corrupts the measurement of that same regression. Tooling is ES modules (charter §6.2) with minimal dependencies. pnpm, if needed, is installed standalone and pinned. Corepack is not assumed: v26 `configure.py` has `--with-corepack` but no `--without-corepack`, which implies it is not bundled by default (verified flag presence; the bundling implication is an *assumption*).
 
 ### CD-8. Measurement is out-of-process first
+
 RSS, peak RSS, and cgroup memory are sampled from outside the process (`/proc/<pid>/status`, `smaps_rollup`, cgroup v2 `memory.current`/`memory.peak`). In-process APIs (`process.memoryUsage()`, `v8.getHeapStatistics()`, `PerformanceObserver` `gc` entries) are sampled by a preload module whose overhead is itself measured (doc 01 §6, doc 02 §5). Rationale: in-process sampling allocates, so it perturbs exactly the metrics under study.
 
 ### CD-9. Linux arm64 first (OCI Always Free), x64 via CI; macOS is a dev convenience — **accepted 2026-10-12 (D-04)**
+
 Charter §6.2 ("Linux x64/arm64 first"). With no infrastructure budget, the build and benchmark host of record is an **OCI Always Free Ampere A1 (arm64)** allocation (ADR-0007). So **Linux arm64 is the first build and benchmark target**. Linux x64 is built and tested on free GitHub Actions hosted runners and is *not* benchmarked for the record until x64 hardware with doc 02 §4.1 controls exists. Benchmark comparisons are valid only within one host. macOS builds are unsupported and unbenchmarked. Note that local macOS builds of v26 need Python ≥ 3.10, while the dev machine has `/usr/bin/python3` 3.9.6 (see context.md).
 
 ---
@@ -177,6 +187,7 @@ A *flavor* is a named, versioned `configure` flag set in `config/build/`. Every 
 | `pini-exp-*` | Other build-level levers, one per experiment | e.g. `--v8-enable-hugepage` (Linux-only per help text), `--enable-lto`, `--v8-lite-mode` (help text: "implies no just-in-time compilation support, thus much slower execution"; reference only, not a candidate) | M4 |
 
 **Reproducibility hazards found in upstream `configure` (v26):**
+
 - If neither `--v8-enable-temporal-support` nor `--v8-disable-temporal-support` is passed, `configure.py` probes for `cargo`/`rustc` and silently disables Temporal if they are missing (v26.11.1 `BUILDING.md` "Building Node.js with Temporal support"). **Every flavor must pass one of these explicitly.** The official v26.11.1 build has `v8_enable_temporal_support: 1` (headers `config.gypi`).
 - `--use-largepages` is documented as "no longer supported and a no-op". Do not list it as a lever.
 

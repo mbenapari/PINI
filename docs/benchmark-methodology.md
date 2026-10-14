@@ -25,36 +25,43 @@
 All server workloads live in `benchmarks/<id>/`. Each is a single process listening on a configurable port with no external services, and has **pinned dependencies** (lockfile committed). Payload fixtures are generated deterministically from a fixed seed and committed or generated at run start with the seed recorded.
 
 ### 2.1 W1 — Plain `http` API (first suite)
+
 - `node:http` server. `GET /json` returns a fixed ~1 KiB JSON body. `GET /health` returns 204.
 - Keep-alive on. No middleware, no logging.
 - **Reveals:** runtime baseline throughput and memory under load; the floor for W2.
 
 ### 2.2 W2 — Express JSON API (first suite)
+
 - Express (latest 5.x at Phase 1 pin time, version recorded in lockfile; *exact version not chosen yet*).
 - Routes: `GET /items/:id` (lookup in an in-memory Map of 10k items, serialize ~2 KiB). `POST /items` (parse ~4 KiB JSON body with `express.json()`, validate shape by hand, store with a bounded LRU of 10k entries so retention is fixed, not growing). An error route that throws, handled by error middleware.
 - One trivial custom middleware (request-id header). No logging to disk.
 - **Reveals:** framework overhead, JSON parse/serialize, middleware allocation.
 
 ### 2.3 W3 — Allocation-intensive (first suite)
+
 - `GET /alloc?n=<N>&depth=<D>` builds N short-lived nested objects of depth D, maps/filters/reduces them, and returns a small summary (output size independent of N, so I/O does not dominate).
 - Parameter ladder: N ∈ {1e3, 1e4, 1e5} at fixed D=3.
 - Also a **non-HTTP mode** (`node benchmarks/w3/standalone.mjs`) that runs the same kernel in a loop for a fixed iteration count. It isolates GC from networking and serves as the microbenchmark that is never used alone for decisions (charter §9).
 - **Reveals:** allocation rate, scavenge frequency, promotion, young-gen sizing (H3).
 
 ### 2.4 W4 — Buffer-heavy (first suite)
+
 - `POST /echo` streams the request body back (sizes 64 KiB, 256 KiB, 1 MiB).
 - `GET /blob?size=<S>` returns a freshly allocated Buffer of S bytes. `POST /gzip` pipes the body through `zlib.createGzip()` (zlib is native memory).
 - **Reveals:** external/ArrayBuffer memory, native residual, allocator behavior (H7).
 
 ### 2.5 W5 — Long-running steady load (first suite)
+
 - W2's server, driven at a fixed rate (§4.2: 50% of M1 saturation) for **60 minutes** (Phase 1), extended to longer in Phase 4 once variance is known. This is followed by **15 minutes of zero load** (recovery window).
 - **Reveals:** growth over time (slope), retention, post-load recovery (H5).
 
 ### 2.6 W0 — Idle probe (supporting, not a charter workload)
+
 - Start the binary with an empty HTTP server, wait for "listening", then sample for 60 s with no traffic.
 - **Reveals:** process overhead at startup and idle (charter §3 "process overhead"). Cheap, and run in every matrix cell.
 
 ### 2.7 Later workloads (charter §4, not in Phase 1)
+
 Database-backed API, background worker, container-limited service, and high concurrency get specs in this doc when their phase starts. Until then they are tracked in doc 09 §7 (deferred).
 
 ---
@@ -89,6 +96,7 @@ All rows use the same upstream tarball (version-lock). If M0 and M1 differ beyon
 | Noise | No other benchmark concurrently; host idle check before each run (load average below a recorded threshold) | pre-run loadavg |
 
 **Accepted 2026-10-12 (D-04): there is no budget, so infrastructure is OCI Always Free.** The resource figures above were supplied by the owner and have not been re-verified against Oracle's current terms. Caveats this methodology must absorb:
+
 - **Noise from shared hardware.** A1 VMs share physical hosts with other tenants. Mitigations:
   - n starts at **20** per cell, not 10.
   - Strict randomized interleaving of rows.
@@ -101,6 +109,7 @@ All rows use the same upstream tarball (version-lock). If M0 and M1 differ beyon
 - **x64.** There is no benchmark of record on x64 until suitable x64 hardware exists. GitHub Actions runners are for build and test only.
 
 **OCI is insufficient, and D-04 must be revisited, if any of these happen:**
+
 - After n=20, the same-session A/A spread on primary metrics is still wider than the effects an experiment pre-registers as meaningful.
 - A1 capacity is repeatedly unavailable in the home region.
 - Reclamation disrupts sessions.
@@ -119,6 +128,7 @@ All rows use the same upstream tarball (version-lock). If M0 and M1 differ beyon
 **Rate selection (calibration).** For each workload, once per pin, run a closed-model saturation test on **M1** to find max sustainable throughput (highest rate with error rate 0 and p99 below the knee). Target rates are then **50% and 80% of M1 saturation**, fixed for every row. Rates are never re-calibrated per row, because that would hide regressions.
 
 ### 4.3 Repetitions and ordering
+
 - **n = 20** repetitions per cell to start (raised from 10 because of noise from shared OCI hardware, D-04). This is a *proposal*: Phase 1 measures the coefficient of variation, and n is adjusted to whatever yields a stable median. The change is recorded.
 - Rows are **interleaved in randomized order** (M1, M3, M1, M4, ...), not run in blocks, so slow drift (thermal, background) spreads evenly across rows.
 - A fresh process for every repetition.
@@ -164,6 +174,7 @@ All rows use the same upstream tarball (version-lock). If M0 and M1 differ beyon
 ## 8. Report template
 
 Each baseline or experiment report includes, in this order (charter §10 "Every report includes"):
+
 1. PINI / Node.js / V8 versions, commits, flavor, build config (from manifests)
 2. Hardware / OS / kernel / container limits / environment controls (§4.1)
 3. Workload description and parameters; load-generator version and args
@@ -179,6 +190,7 @@ Each baseline or experiment report includes, in this order (charter §10 "Every 
 ## 9. Load generator
 
 Per ADR-0005 (*proposed*): **oha** (`hatoo/oha`, MIT, v1.16.0 released 2026-08-23, actively maintained) as the primary generator. Reasons:
+
 - Fixed-rate mode (`-q <QPS>`) with **`--latency-correction`** for coordinated omission.
 - Duration mode (`-z`).
 - Machine-readable `--output-format json` with a published schema.

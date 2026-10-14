@@ -121,6 +121,7 @@
 **Status: Accepted 2026-10-12 (owner decision D-04: there is no money budget).**
 
 **Decision.**
+
 - **arm64 build and benchmark host of record: Oracle Cloud Infrastructure (OCI) Always Free, Ampere A1.** The owner-supplied allocation is 4 OCPU / 24 GB in total.
   - **Chosen layout (accepted 2026-10-12, already provisioned by the owner): two VMs of 2 OCPU / 12 GB**, one as the system under test (SUT) and one as the load generator, in the same availability domain on a private network.
   - The single 4-OCPU VM option is not used. Builds run on one of the 2 OCPU / 12 GB VMs (preferably the load-generator VM, never during a benchmark session), with ccache.
@@ -133,6 +134,7 @@
 - The OCI VM may run a **self-hosted runner** for arm64 builds and T2 (doc 04 §6: only maintainer-approved refs).
 
 **Caveats** (details in benchmark-methodology.md §4.1):
+
 - Noise from shared hardware: n=20, interleaving, a same-session A/A run, compare only within one host.
 - Oracle's idle-instance reclamation: treat VMs as disposable, script provisioning, copy results off the VM.
 - Slow builds on 2–4 OCPU (≥ 8 GB RAM for `-j4` per upstream): use ccache, and never build and benchmark at the same time.
@@ -140,6 +142,7 @@
 - These resource figures were supplied by the owner and not re-verified against Oracle's terms.
 
 **Revisit (OCI is insufficient) when any of these happen:**
+
 - The same-session A/A spread after n=20 is too wide for the effects experiments care about.
 - A1 capacity is repeatedly unavailable.
 - Reclamation disrupts work.
@@ -187,7 +190,7 @@ Each item states the default in effect and what changes if the answer differs.
 | ID | Question | Default assumed | If different |
 |---|---|---|---|
 | ~~D-01~~ | ~~PINI license and contribution terms (ADR-0011)~~ | | **resolved (2026-10-12):** MIT + DCO |
-| ~~D-02~~ | ~~Private security contact for SECURITY.md~~ | | **resolved (2026-10-12):** afa.hamdu@gmail.com |
+| ~~D-02~~ | ~~Private security contact for SECURITY.md~~ | | **resolved (2026-10-12):** <afa.hamdu@gmail.com> |
 | ~~D-03~~ | ~~Pin v26 LTS (ADR-0003) vs v24~~ | | **resolved (2026-10-12):** first v26 LTS release (on/after 2026-10-28). v24 is fallback only |
 | ~~D-04~~ | ~~Benchmark host and CI budget (ADR-0007)~~ | | **resolved (2026-10-12):** no budget. OCI Always Free Ampere A1 (arm64, 4 OCPU / 24 GB total) + free GitHub Actions for x64. Insufficiency triggers are in ADR-0007 |
 | ~~D-05~~ | ~~Number of maintainers / reviewers~~ | | **resolved (2026-10-12):** solo developer. Reproduction = clean-VM rebuild + checksum comparison (BLD-AC-3, BM-AC-5). Patch review = self-review after a cooling-off period + code-reviewer agent pass + full test tier (security-policy.md §4) |

@@ -37,10 +37,12 @@ The binary is named `node` so shebangs and tooling keep working. PINI identity l
 ## 4. Memory budgeting (the most important operator guidance)
 
 Facts (verified in Node source, doc 01 §2.1):
+
 - With no heap flags, Node sizes V8's old generation from `min(physical memory, cgroup limit)`. So in a container the default heap limit already follows the container's limit.
 - `--max-old-space-size-percentage=<p>` sets old space as a percentage of the constrained memory (or of total memory if unconstrained). `--max-old-space-size=<MiB>` sets it absolutely. The percentage flag wins if both are given.
 
 Guidance (charter O3: "heap limit is *part* of the budget, not all of it"):
+
 - **Container budget ≈ JS heap limit + young generation + external/ArrayBuffers + native (OpenSSL, zlib, ICU, add-ons, thread stacks) + headroom.** The OOM killer judges cgroup usage, not heap.
 - Measure, don't guess. Run the PINI memory report (doc 01 §7) under representative load and look at `heap.limit`, `external.*`, `derived.nativeResidual`, and `container.*`.
 - **No recommended percentages are published yet.** Values come only from Phase 4 experiments H1/H2 (doc 01 §4). Until then, upstream defaults apply.

@@ -14,6 +14,7 @@ Status legend: `untested` · `pass` · `pass-with-notes` · `fail` · `unsupport
 ## 1. Compatibility contract (proposed)
 
 For a PINI release built from Node.js `vX.Y.Z`:
+
 1. Any JavaScript program that runs on upstream `vX.Y.Z` runs on PINI with the **same observable behavior**. Documented memory-related defaults (`config/runtime/`) are the only exception, listed in §6.
 2. Node-API add-ons built for Node-API versions supported by `vX.Y.Z` load and run on the default `pini` flavor.
 3. Add-ons built against the V8/Node C++ ABI (`NODE_MODULE_VERSION`) for upstream `vX.Y.Z` load on the default `pini` flavor. They are **not** guaranteed on experimental flavors that change the ABI (§4).

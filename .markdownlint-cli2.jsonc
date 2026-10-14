@@ -1,0 +1,10 @@
+{
+  // T0 markdown lint (P0-06, TST-AC-1).
+  "config": {
+    "default": true,
+    "MD013": false, // prose is not hard-wrapped
+    "MD060": false, // table pipe alignment is cosmetic
+    "MD025": false  // project-plan.md uses Part A / Part B as top-level headings
+  },
+  "ignores": [".claude/**", "node_modules/**", "artifacts/**", "out/**"]
+}
