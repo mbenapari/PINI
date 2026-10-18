@@ -35,20 +35,19 @@
 
 ## In progress
 
-- None. Next up: P0-11. Done 2026-10-14: P0-08 (T0 `dependency-review` job using `actions/dependency-review-action` v5.0.0, fails on moderate+ advisories, PR-only; SEC-AC-3), P0-06 (`.github/workflows/t0.yml`: markdownlint, offline internal link + anchor check with lychee, action SHA-pin check; all required on `main` with `dco`). Done 2026-10-13: P0-05 (public repo github.com/mbenapari/PINI; `main` protected: PR required, `dco` check required and strict, no force-push or deletion), P0-04 (MIT `LICENSE`; DCO check `tools/ci/check-dco.sh` + `.github/workflows/dco.yml`, verified on existing history and against an unsigned commit), P0-02 (`git init` on `main`, charter §15 skeleton, `.gitignore`, `artifacts/README.md`, `CHANGELOG.md`; commit 02d5e01) and P0-03 (README layout table, SECURITY report contents, CONTRIBUTING changelog/results rules, section anchors).
+- None. Next up: P0-10. Done 2026-10-18: P0-09 (`tools/provision/`: `facts.sh` read-only host report, idempotent `setup.sh sut|loadgen`, `session.sh begin|end` to quiet services for benchmark sessions; vm2 = SUT and build host, vm1 = load generator with the owner's nginx; both on Ubuntu 24.04, cgroup v2 + `memory.peak` + `smaps_rollup` present, so PR-8 is resolved; both VMs had a ~115-day hung `apt-get update` blocking security updates, fixed). Done 2026-10-14: P0-08 (T0 `dependency-review` job using `actions/dependency-review-action` v5.0.0, fails on moderate+ advisories, PR-only; SEC-AC-3), P0-06 (`.github/workflows/t0.yml`: markdownlint, offline internal link + anchor check with lychee, action SHA-pin check; all required on `main` with `dco`). Done 2026-10-13: P0-05 (public repo github.com/mbenapari/PINI; `main` protected: PR required, `dco` check required and strict, no force-push or deletion), P0-04 (MIT `LICENSE`; DCO check `tools/ci/check-dco.sh` + `.github/workflows/dco.yml`, verified on existing history and against an unsigned commit), P0-02 (`git init` on `main`, charter §15 skeleton, `.gitignore`, `artifacts/README.md`, `CHANGELOG.md`; commit 02d5e01) and P0-03 (README layout table, SECURITY report contents, CONTRIBUTING changelog/results rules, section anchors).
 
 ## Blockers / waiting on
 
 | Item | Waiting on | Blocks |
 |---|---|---|
 | v26 LTS release (expected 2026-10-28) | Upstream | P1-01 |
-| Linux build environment | P0-09 scripted OCI VM provisioning | P0-10 |
 
 ## Next (in order)
 
 1. ~~P0-02 `git init` + skeleton~~ (done 2026-10-13); ~~P0-04 MIT `LICENSE`~~ (done 2026-10-13); ~~P0-05 repo~~ (done 2026-10-13, public); ~~P0-06 T0 CI~~ (done 2026-10-14); ~~P0-08 dependency scanning~~ (done 2026-10-14).
-2. P0-11: dev-machine hygiene (update Node, install gpg).
-3. P0-09: script provisioning of the two existing VMs (so they can be rebuilt after reclamation).
+2. P0-11: dev-machine hygiene (update Node, install gpg). Owner runs it locally.
+3. ~~P0-09: script provisioning of the two existing VMs~~ (done 2026-10-18).
 4. P0-10: riskiest-first arm64 build dry run of v26.11.1 on A1.
 5. P0-12: OCI noise probe (A/A on the two-VM layout).
 
