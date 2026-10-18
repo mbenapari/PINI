@@ -44,8 +44,8 @@ Both VMs: aarch64, 2 × Neoverse-N1, 12 GB RAM, no swap, THP `madvise`, 100 GB b
 
 | | vm2 (`sut`) | vm1 (`loadgen`) |
 |---|---|---|
-| OS / kernel | Ubuntu 24.04.5 / 7.0.0-1013-oracle | to record from `facts.sh` (upgraded and rebooted 2026-10-18) |
-| Docker | 29.9.1 | to record |
+| OS / kernel | Ubuntu 24.04.5 / 7.0.0-1013-oracle | Ubuntu 24.04.5 / 7.0.0-1013-oracle |
+| Docker | 29.9.1 | not recorded since upgrade (29.4.1 before) |
 | cgroup v2, `memory.peak`, `smaps_rollup` | present (re-checked on 7.0) | present (checked on 6.17) |
 | `perf_event_paranoid` | 4 (unprivileged `perf` blocked; samplers do not need it) | 4 |
 
