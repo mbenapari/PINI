@@ -111,7 +111,7 @@ Legend: complexity **S/M/L**, risk **lo/med/hi**. "Implements" cites the spec se
 | P0-07 | ~~Decide ADR-0003/ADR-0007~~ **resolved 2026-10-12.** OCI A1 capacity is confirmed: two 2 OCPU / 12 GB VMs are provisioned **(done 2026-10-12)** | ADR-0007 | — | S/lo |
 | P0-08 | **(done 2026-10-14)** Pick a dependency-scanning tool and wire it into T0 (`actions/dependency-review-action`, security-policy.md §6) | SEC-AC-3 | P0-06 | S/lo |
 | P0-09 | **(done 2026-10-18; `tools/provision/`)** **Scripted** provisioning of the OCI A1 VM(s) (disposable, because of reclamation): OS, Podman/Docker, ccache, disk layout, optional self-hosted runner | ADR-0004, ADR-0007 | P0-07 | M/med |
-| P0-10 | **Riskiest-first dry run on OCI A1 (arm64):** manually fetch v26.11.1, verify with `gpgv` + SHA-256, build `stock` in a candidate image at -j2/-j4; record wall time, peak RAM, disk used, toolchain versions | PR-1, PR-2, PR-4; UP-AC (manual) | P0-09 | M/**hi** |
+| P0-10 | **(done 2026-10-19; `tools/build/`)** **Riskiest-first dry run on OCI A1 (arm64):** manually fetch v26.11.1, verify with `gpgv` + SHA-256, build `stock` in a candidate image at -j2/-j4; record wall time, peak RAM, disk used, toolchain versions | PR-1, PR-2, PR-4; UP-AC (manual) | P0-09 | M/**hi** |
 | P0-11 | Update dev-machine Node to the current v24 or v26 release (24.14.1 is behind two security releases); install `gpg`; Python ≥ 3.10 if local v26 configure is ever wanted | context.md §4 | — | S/lo |
 | P0-12 | OCI noise probe: 20× W1-equivalent on M0 (official linux-arm64 binary), A/A, on the two-VM layout; compute CV | PR-5; doc 02 §4.3 | P0-07 | S/med |
 | P0-13 | Versioning policy confirmed (doc 07 §1, Q-03) | charter Phase 0 "versioning policy" | P0-01 | S/lo |

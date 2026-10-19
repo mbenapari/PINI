@@ -13,3 +13,4 @@ All notable changes to PINI are recorded here. The format follows [Keep a Change
 - T0 CI: markdown lint, internal link and anchor check, action SHA-pin check (P0-06).
 - Dependency review on pull requests, blocking moderate-or-worse advisories (P0-08).
 - Scripted OCI VM provisioning: host report, idempotent setup, benchmark-session service control (P0-09).
+- P0-10 build dry-run scripts: detached build of v26.11.1 in a candidate image, status reporter, and a network-off mode (P0-10, PR-4).
